@@ -5,7 +5,6 @@ from .. import socketio
 
 @socketio.on('join')
 def join(data):
-    print(data)
     username = data['username']
     room = data['room']
     join_room(room)

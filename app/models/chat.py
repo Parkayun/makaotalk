@@ -24,7 +24,7 @@ class Message(db.Model):
     chat_room_id = db.Column(db.Integer(), db.ForeignKey('chat_room.id'))
 
     def __init__(self, username, text, chat_room_id):
-        self.title, self.text, self.chat_room_id = username, text, chat_room_id
+        self.username, self.text, self.chat_room_id = username, text, chat_room_id
 
     def __repr__(self):
         return '<Message %d - %s: %s (ChatRoom: %d)>' % (self.id, self.username, self.text, self.chat_room_id)

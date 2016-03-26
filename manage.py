@@ -18,7 +18,7 @@ def setup_db():
 
 @manager.command
 def run():
-    app.run()
+    app.run(debug=True)
 
 
 if __name__ == "__main__":

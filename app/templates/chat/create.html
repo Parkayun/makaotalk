@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Create Chat Room{% endblock %}
+
+{% block body %}
+    <h1>Create Chat Room</h1>
+    <form method="post" action=".">
+        <span>Title:</span>
+        <input type="text" name="title">
+        <input type="submit">
+    </form>
+{% endblock %}

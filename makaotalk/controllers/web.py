@@ -23,7 +23,7 @@ def web_chat_create():
             chat_room = ChatRoom(title)
             db.session.add(chat_room)
             db.session.commit()
-            return redirect(url_for('controllers.chat', room_id=chat_room.id))
+            return redirect(url_for('controllers.web_chat_room', room_id=chat_room.id))
     return render_template('chat/create.html')
 
 

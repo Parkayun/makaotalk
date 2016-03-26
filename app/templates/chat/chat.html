@@ -5,6 +5,7 @@
 {% block body %}
     <h1>Chat - {{ chat_room.title }}</h1>
     <div id="board"></div>
+    <input type="text" id="input">
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
     function getUniqueUsername() {
@@ -16,12 +17,21 @@
     }
 
     var username = getUniqueUsername();
+    var basicData = {username: username, room: '{{ chat_room.id }}'};
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
-    socket.emit('join', {username: username, room: '{{ chat_room.id }}'})
+    socket.emit('join', basicData);
 
     socket.on('response', function(data) {
         $('#board').append($('<p/>').html(data['message']));
+    });
+
+    $('#input').keypress(function(event) {
+       if (event.keyCode == 13) {
+           var data = basicData;
+           data['message'] = $(this).val();
+           socket.emit('chat', data);
+       }
     });
     </script>
 {% endblock %}

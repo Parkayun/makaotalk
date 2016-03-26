@@ -5,7 +5,11 @@ from .. import socketio
 
 @socketio.on('join')
 def join(data):
-    username = data['username']
-    room = data['room']
-    join_room(room)
+    username, room = data['username'], data['room']
     emit('response', {'message': username + ' joined'}, room=room)
+
+
+@socketio.on('chat')
+def chat(data):
+    username, message, room = data['username'], data['message'], data['room']
+    emit('response', {'message': username + ': ' + message}, room=room)

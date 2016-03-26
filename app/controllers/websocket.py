@@ -9,7 +9,6 @@ from ..models.chat import Message
 def join(data):
     username, room = data['username'], data['room']
     join_room(room)
-    emit('response', {'message': username + ' joined'}, room=room)
 
 
 @socketio.on('chat')

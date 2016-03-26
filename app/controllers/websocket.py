@@ -9,4 +9,4 @@ def join(data):
     username = data['username']
     room = data['room']
     join_room(room)
-    emit('response', {'a': username + ' joined'}, room=room)
+    emit('response', {'message': username + ' joined'}, room=room)

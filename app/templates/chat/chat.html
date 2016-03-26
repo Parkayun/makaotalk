@@ -7,7 +7,7 @@
     <div id="board">
     {% for message in messages %}
         <p id="message-{{ message.id }}">
-            {{ message.username }}: {{ message.text }}
+            <span>{{ message.username }}: {{ message.text }}</span>
             {% if message.username == username %}
                 -
                 <button class="delete">Delete</button>
@@ -26,7 +26,7 @@
     socket.emit('join', basicData);
 
     socket.on('response', function(data) {
-        var html = data['username'] + ': '+ data['message']['text'];
+        var html = '<span>' + data['username'] + ': '+ data['message']['text'] + '</span>';
         if (data['username'] == username) {
             html += ' - <button class="delete">Delete</button>';
         }

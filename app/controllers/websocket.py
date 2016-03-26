@@ -13,7 +13,8 @@ def join(data):
 
 @socketio.on('chat')
 def chat(data):
-    username, message, room = data['username'], data['message'], data['room']
-    db.session.add(Message(username, message, int(room)))
+    username, message_text, room = data['username'], data['message'], data['room']
+    message = Message(username, message_text, int(room))
+    db.session.add(message)
     db.session.commit()
-    emit('response', {'message': username + ': ' + message}, room=room)
+    emit('response', {'username': username, 'message': {'id': message.id, 'text': message.text}}, room=room)

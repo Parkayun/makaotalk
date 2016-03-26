@@ -6,7 +6,13 @@
     <h1>Chat - {{ chat_room.title }}</h1>
     <div id="board">
     {% for message in messages %}
-        <p>{{ message.username }}: {{ message.text }}</p>
+        <p data-id="{{ message.id }}">
+            {{ message.username }}: {{ message.text }}
+            {% if message.username == username %}
+                -
+                <button class="delete">Delete</button>
+            {% endif %}
+        </p>
     {% endfor %}
     </div>
     <input type="text" id="input">
@@ -20,7 +26,11 @@
     socket.emit('join', basicData);
 
     socket.on('response', function(data) {
-        $('#board').append($('<p/>').html(data['message']));
+        var html = data['username'] + ': '+ data['message']['text'];
+        if (data['username'] == username) {
+            html += ' - <button class="delete">Delete</button>';
+        }
+        $('#board').append($('<p/>').html(html).attr('data-id', data['message']['id']));
     });
 
     $('#input').keypress(function(event) {
@@ -30,6 +40,16 @@
            socket.emit('chat', data);
            $(this).val('');
        }
+    });
+
+    $('body').delegate('.delete', 'click', function(event) {
+        var $parent = $(this).parent();
+        var messageId = $parent.data('id');
+        $.get('/chat/delete/'+messageId, function(data) {
+           if (data.status == 'success') {
+               $parent.remove();
+           }
+        });
     });
     </script>
 {% endblock %}

@@ -9,7 +9,7 @@ from ..models.chat import ChatRoom, Message
 
 @blueprint.route('/chat/<int:room_id>/')
 @get_or_set_username
-def chat(room_id):
+def web_chat_room(room_id):
     chat_room = ChatRoom.query.get_or_404(room_id)
     messages = Message.query.filter_by(chat_room=chat_room)
     data = {'chat_room': chat_room, 'messages': messages, 'username': session['username']}
@@ -17,7 +17,7 @@ def chat(room_id):
 
 
 @blueprint.route('/chat/create/', methods=('GET', 'POST'))
-def create():
+def web_chat_create():
     if request.method == 'POST':
         title = request.form.get('title', '')
         if title != '':
@@ -29,7 +29,7 @@ def create():
 
 
 @blueprint.route('/chat/delete/<int:message_id>')
-def delete(message_id):
+def web_chat_delete(message_id):
     result = {'status': 'success'}
     try:
         db.session.delete(Message.query.get(message_id))
@@ -40,7 +40,7 @@ def delete(message_id):
 
 
 @blueprint.route('/')
-def index():
+def web_index():
     chat_rooms = ChatRoom.query.all()
     data = {'chat_rooms': chat_rooms}
     return render_template('chat/index.html', **data)

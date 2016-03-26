@@ -24,6 +24,10 @@
         return $parent.attr('id').replace('message-', '');
     }
 
+    function makeChatText(username, text) {
+        return username + ': ' + text;
+    }
+
     var username = '{{ username }}';
     var basicData = {username: username, room: '{{ chat_room.id }}'};
     var socket = io.connect('http://' + document.domain + ':' + location.port);
@@ -31,7 +35,7 @@
     socket.emit('join', basicData);
 
     socket.on('response', function(data) {
-        var html = '<span>' + data['username'] + ': '+ data['message']['text'] + '</span>';
+        var html = '<span>' + makeChatText(data['username'], data['message']['text']) + '</span>';
         if (data['username'] == username) {
             html += ' - <button class="delete">Delete</button>';
         }
@@ -40,6 +44,11 @@
 
     socket.on('delete', function(data) {
         $('#message-'+data['message_id']).remove();
+    });
+
+    socket.on('update', function(data) {
+        var html = makeChatText(data['username'], data['message']['text']);
+        $('#message-'+data['message']['id']).find('span').html(html);
     });
 
     $('#input').keypress(function(event) {
@@ -54,12 +63,27 @@
     $('body').delegate('.delete', 'click', function(event) {
         var messageId = getMessageIdByButton($(this));
         var data = basicData;
-        data['message_id'] = messageId
+        data['message_id'] = messageId;
         socket.emit('delete', data);
     });
 
     $('body').delegate('.modify', 'click', function(event) {
-        var messageId = getMessageIdByButton($(this));
+        $(this).after('<input type="text" class="modifyInput">');
+        $(this).hide();
+    });
+
+    $('body').delegate('.modifyInput', 'keyup', function(event) {
+       if (event.keyCode == 13) {
+           var messageId = getMessageIdByButton($(this));
+           var data = basicData;
+           data['message_id'] = messageId;
+           data['message'] = $(this).val();
+           socket.emit('update', data);
+           $(this).val('');
+       } else if (event.keyCode == 27) {
+           $(this).parent().find('button').eq(0).show();
+           $(this).val('').hide();
+       }
     });
     </script>
 {% endblock %}

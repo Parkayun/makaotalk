@@ -29,3 +29,14 @@ def delete(data):
 def join(data):
     username, room = data['username'], data['room']
     join_room(room)
+
+
+@socketio.on('update')
+def update(data):
+    username, message_id, message_text, room = data['username'], int(data['message_id']), data['message'], data['room']
+    message = Message.query.filter_by(id=message_id, username=session['username']).first()
+    if message:
+        message.text = data['message']
+        db.session.add(message)
+        db.session.commit()
+        emit('update', {'username': username, 'message': {'id': message.id, 'text': message.text}}, room=room)

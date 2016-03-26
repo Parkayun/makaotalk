@@ -2,13 +2,14 @@ from flask import render_template, request, redirect, url_for
 
 from . import blueprint
 from ..models import db
-from ..models.chat import ChatRoom
+from ..models.chat import ChatRoom, Message
 
 
 @blueprint.route('/chat/<int:room_id>/')
 def chat(room_id):
     chat_room = ChatRoom.query.get_or_404(room_id)
-    data = {'chat_room': chat_room}
+    messages = Message.query.filter_by(chat_room=chat_room)
+    data = {'chat_room': chat_room, 'messages': messages}
     return render_template('chat/chat.html', **data)
 
 

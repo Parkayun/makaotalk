@@ -3,6 +3,7 @@
 {% block title %}Chat - {{ chat_room.title }}{% endblock %}
 
 {% block body %}
+    <a href="/">Back to home</a>
     <h1>Chat - {{ chat_room.title }}</h1>
     <div id="board">
     {% for message in messages %}

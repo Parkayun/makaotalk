@@ -1,4 +1,4 @@
-from flask_socketio import join_room, send, emit
+from flask_socketio import emit, join_room
 
 from .. import socketio
 

@@ -7,12 +7,6 @@ from ..models import db
 from ..models.chat import Message
 
 
-@socketio.on('join')
-def join(data):
-    username, room = data['username'], data['room']
-    join_room(room)
-
-
 @socketio.on('chat')
 def chat(data):
     username, message_text, room = data['username'], data['message'], data['room']
@@ -30,3 +24,9 @@ def delete(data):
         db.session.delete(message)
         db.session.commit()
         emit('delete', {'message_id': message_id}, room=data['room'])
+
+
+@socketio.on('join')
+def join(data):
+    username, room = data['username'], data['room']
+    join_room(room)

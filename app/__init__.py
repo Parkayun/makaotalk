@@ -11,7 +11,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
 
-    from .views import blueprint
+    from .controllers import blueprint
     app.register_blueprint(blueprint)
 
     return app

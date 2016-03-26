@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-blueprint = Blueprint('views', __name__)
+blueprint = Blueprint('controllers', __name__)
 
 from . import chat

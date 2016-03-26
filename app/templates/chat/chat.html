@@ -41,7 +41,7 @@
             html += ' <button class="modify">Modify</button>';
             html += ' <button class="delete">Delete</button>';
         }
-        $('#board').append($('<p/>').html(html).attr('data-id', data['message']['id']));
+        $('#board').append($('<p/>').html(html).attr('id', 'message-'+data['message']['id']));
     });
 
     socket.on('delete', function(data) {

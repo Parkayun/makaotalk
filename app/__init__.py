@@ -9,6 +9,7 @@ socketio = SocketIO(app)
 
 
 def create_app():
+    app.config['SECRET_KEY'] = 'asdf'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../database.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)

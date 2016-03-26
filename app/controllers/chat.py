@@ -7,4 +7,5 @@ from ..models.chat import ChatRoom
 @blueprint.route('/')
 def index():
     chat_rooms = ChatRoom.query.all()
-    return render_template('chat/index.html')
+    data = {'chat_rooms': chat_rooms}
+    return render_template('chat/index.html', **data)

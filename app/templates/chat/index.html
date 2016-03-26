@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}flask-init{% endblock %}
+{% block title %}Chat Rooms{% endblock %}
 
 {% block body %}
-<h1>Hello Word</h1>
+    <h1>Chat Rooms</h1>
+    {% if chat_rooms %}
+        <ul>
+        {% for room in chat_rooms %}
+            <li><a href="/chat/{{ room.id }}/">{{ room.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

@@ -6,7 +6,7 @@
     <h1>Chat - {{ chat_room.title }}</h1>
     <div id="board">
     {% for message in messages %}
-        <p data-id="{{ message.id }}">
+        <p id="message-{{ message.id }}">
             {{ message.username }}: {{ message.text }}
             {% if message.username == username %}
                 -
@@ -33,6 +33,10 @@
         $('#board').append($('<p/>').html(html).attr('data-id', data['message']['id']));
     });
 
+    socket.on('delete', function(data) {
+        $('#message-'+data['message_id']).remove();
+    });
+
     $('#input').keypress(function(event) {
        if (event.keyCode == 13) {
            var data = basicData;
@@ -44,12 +48,10 @@
 
     $('body').delegate('.delete', 'click', function(event) {
         var $parent = $(this).parent();
-        var messageId = $parent.data('id');
-        $.get('/chat/delete/'+messageId, function(data) {
-           if (data.status == 'success') {
-               $parent.remove();
-           }
-        });
+        var messageId = $parent.attr('id').replace('message-', '');
+        var data = basicData;
+        data['message_id'] = messageId
+        socket.emit('delete', data);
     });
     </script>
 {% endblock %}

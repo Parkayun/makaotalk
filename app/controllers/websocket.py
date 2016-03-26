@@ -1,4 +1,6 @@
+from flask import session
 from flask_socketio import emit, join_room
+from sqlalchemy.orm.exc import UnmappedInstanceError
 
 from .. import socketio
 from ..models import db
@@ -18,3 +20,13 @@ def chat(data):
     db.session.add(message)
     db.session.commit()
     emit('response', {'username': username, 'message': {'id': message.id, 'text': message.text}}, room=room)
+
+
+@socketio.on('delete')
+def delete(data):
+    message_id = int(data['message_id'])
+    message = Message.query.filter_by(id=message_id, username=session['username']).first()
+    if message:
+        db.session.delete(message)
+        db.session.commit()
+        emit('delete', {'message_id': message_id}, room=data['room'])

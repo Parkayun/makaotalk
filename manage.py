@@ -1,8 +1,8 @@
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 
-from app import create_app, socketio
-from app.models import db
+from makaotalk import create_app, socketio
+from makaotalk.models import db
 
 
 app = create_app()

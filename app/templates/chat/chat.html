@@ -4,4 +4,23 @@
 
 {% block body %}
     <h1>Chat - {{ chat_room.title }}</h1>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    function getUniqueUsername() {
+        function getGUID() {
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        }
+
+        return 'anonymous-' + getGUID();
+    }
+
+    var username = getUniqueUsername();
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+    socket.emit('join', {username: username, room: '{{ chat_room.id }}'})
+
+    socket.on('response', function(msg) {
+        console.log(msg)
+    });
+    </script>
 {% endblock %}

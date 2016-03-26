@@ -35,6 +35,7 @@
            var data = basicData;
            data['message'] = $(this).val();
            socket.emit('chat', data);
+           $(this).val('');
        }
     });
     </script>

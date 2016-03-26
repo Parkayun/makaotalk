@@ -37,7 +37,9 @@
     socket.on('response', function(data) {
         var html = '<span>' + makeChatText(data['username'], data['message']['text']) + '</span>';
         if (data['username'] == username) {
-            html += ' - <button class="delete">Delete</button>';
+            html += ' - ';
+            html += ' <button class="modify">Modify</button>';
+            html += ' <button class="delete">Delete</button>';
         }
         $('#board').append($('<p/>').html(html).attr('data-id', data['message']['id']));
     });

@@ -1,15 +1,17 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, session, url_for
 
 from . import blueprint
 from ..models import db
+from ..utils.decorators import get_or_set_username
 from ..models.chat import ChatRoom, Message
 
 
 @blueprint.route('/chat/<int:room_id>/')
+@get_or_set_username
 def chat(room_id):
     chat_room = ChatRoom.query.get_or_404(room_id)
     messages = Message.query.filter_by(chat_room=chat_room)
-    data = {'chat_room': chat_room, 'messages': messages}
+    data = {'chat_room': chat_room, 'messages': messages, 'username': session['username']}
     return render_template('chat/chat.html', **data)
 
 

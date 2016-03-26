@@ -1,8 +1,8 @@
 from flask import render_template
 
-from . import chat_blueprint
+from . import blueprint
 
 
-@chat_blueprint.route('/')
+@blueprint.route('/')
 def index():
     return render_template('chat/index.html')

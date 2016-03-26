@@ -1,7 +1,7 @@
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 
-from app import create_app
+from app import create_app, socketio
 from app.models import db
 
 
@@ -18,7 +18,7 @@ def setup_db():
 
 @manager.command
 def run():
-    app.run(debug=True)
+    socketio.run(app, debug=True)
 
 
 if __name__ == "__main__":

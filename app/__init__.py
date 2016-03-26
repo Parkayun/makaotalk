@@ -1,9 +1,11 @@
 from flask import Flask
+from flask_socketio import SocketIO
 
 from .models import db
 
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 
 def create_app():

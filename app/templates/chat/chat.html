@@ -75,17 +75,20 @@
     });
 
     $('body').delegate('.modifyInput', 'keyup', function(event) {
+        function showButton($this) {
+           $this.parent().find('button').eq(0).show();
+           $this.val('').hide();
+        }
+
         if (event.keyCode == 13) {
            var messageId = getMessageIdByButton($(this));
            var data = basicData;
            data['message_id'] = messageId;
            data['message'] = $(this).val();
            socket.emit('update', data);
-           $(this).parent().find('button').eq(0).show();
-           $(this).val('').hide();
+           showButton($(this));
         } else if (event.keyCode == 27) {
-           $(this).parent().find('button').eq(0).show();
-           $(this).val('').hide();
+           showButton($(this));
         }
     });
     </script>

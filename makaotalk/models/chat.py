@@ -19,6 +19,9 @@ class ChatRoom(db.Model):
 
 
 class Message(db.Model):
+    """Message contains general information.
+    Message has dependency with ChatRoom(Many To One relationship).
+    """
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(20))
     text = db.Column(db.Text())

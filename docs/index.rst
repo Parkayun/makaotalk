@@ -6,6 +6,14 @@
 makaotalk
 =========
 
+.. image:: https://secure.travis-ci.org/Parkayun/makaotalk.svg?branch=master
+   :alt: Build Status
+   :target: https://travis-ci.org/Parkayun/makaotalk
+
+.. image:: https://readthedocs.org/projects/makaotalk/badge/?version=latest
+   :target: http://makaotalk.readthedocs.org/en/latest/
+   :alt: :Documentation Status
+
 makaotalk is a simple web based chat service.
 
 Contents:

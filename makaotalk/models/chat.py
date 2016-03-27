@@ -5,6 +5,9 @@ class ChatRoom(db.Model):
     """ChatRoom contains general information for chat.
     Chats are categorized according to id (primary key).
     Each ChatRoom has many of Message(One to Many relationship) .
+
+    :param title: title of chat room.
+    :type title: :class:`str`
     """
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(50))

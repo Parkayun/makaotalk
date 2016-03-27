@@ -24,7 +24,7 @@ Core Dependency
 
 - gevent
 
-  - real-time chat (websocket)
+  - real-time chat (socketio)
 
 
 Quick Start

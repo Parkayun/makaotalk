@@ -8,9 +8,12 @@ from makaotalk.models.chat import ChatRoom, Message
 app = get_app('sqlite:///../test.db')
 
 
-def test_chat_room():
+def setup_function(_):
+    Message.query.delete()
     ChatRoom.query.delete()
 
+
+def test_chat_room():
     assert ChatRoom.query.count() == 0
 
     title = 'test'
@@ -29,9 +32,6 @@ def test_chat_room():
 
 
 def test_message():
-    Message.query.delete()
-    ChatRoom.query.delete()
-
     _chat_room = ChatRoom('test')
     db.session.add(_chat_room)
     db.session.commit()

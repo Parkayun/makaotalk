@@ -9,10 +9,12 @@ app = get_app('sqlite:///../test.db')
 client = app.test_client()
 
 
-def test_web_index():
+def setup_function(_):
     Message.query.delete()
     ChatRoom.query.delete()
 
+
+def test_web_index():
     title = 'test'
 
     resp = client.get('/')

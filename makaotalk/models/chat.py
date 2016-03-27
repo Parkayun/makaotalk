@@ -2,6 +2,13 @@ from . import db
 
 
 class ChatRoom(db.Model):
+    """ChatRoom contains general information for chat.
+    Chats are categorized according to id (primary key).
+    Each ChatRoom has many of Message(One to Many relationship) .
+
+    :param title: title of chat room.
+    :type title: :class:`str`
+    """
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(50))
     created_at = db.Column(db.DateTime())
@@ -16,6 +23,18 @@ class ChatRoom(db.Model):
 
 
 class Message(db.Model):
+    """Message contains general information.
+    Message has dependency with ChatRoom(Many To One relationship).
+
+    :param username: message author's username.
+    :type username: :class:`str`
+
+    :param text: message content.
+    :type text: :class:`str`
+
+    :param chat_room_id: primary key of :class:`~makaotalk.models.chat.ChatRoom`
+    :type chat_room_id: :class:`int`
+    """
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(20))
     text = db.Column(db.Text())

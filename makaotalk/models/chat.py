@@ -25,6 +25,15 @@ class ChatRoom(db.Model):
 class Message(db.Model):
     """Message contains general information.
     Message has dependency with ChatRoom(Many To One relationship).
+
+    :param username: message author's username.
+    :type username: :class:`str`
+
+    :param text: message content.
+    :type text: :class:`str`
+
+    :param chat_room_id: primary key of :class:`~makaotalk.models.chat.ChatRoom`
+    :type chat_room_id: :class:`int`
     """
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(20))

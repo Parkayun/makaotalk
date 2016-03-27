@@ -28,8 +28,7 @@ def chat(data):
 
 @socketio.on('delete')
 def delete(data):
-    """
-    Websocket controller when users delete their own message.
+    """Websocket controller when users delete their own message.
     Delete chat message on db and broadcast each others who joined chat room.
 
     :param data: Data dictionary of chat.
@@ -49,8 +48,7 @@ def delete(data):
 
 @socketio.on('join')
 def join(data):
-    """
-    Websocket controller when users joined chat room.
+    """Websocket controller when users joined chat room.
     Doing join logic with specific chat room.
 
     :param data: Data dictionary of chat.
@@ -66,8 +64,7 @@ def join(data):
 
 @socketio.on('update')
 def update(data):
-    """
-    Websocket controller when users modify their own message.
+    """Websocket controller when users modify their own message.
     Update chat message on db and broadcast each others who joined chat room.
 
     :param data: Data dictionary of chat.

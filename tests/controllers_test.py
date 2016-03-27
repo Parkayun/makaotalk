@@ -26,3 +26,13 @@ def test_web_index():
     resp = client.get('/')
     assert title.encode('utf-8') in resp.data
     assert resp.status_code == 200
+
+
+def test_web_chat_create():
+    title = 'create_test'
+
+    assert ChatRoom.query.filter_by(title=title).count() == 0
+
+    resp = client.post('/chat/create/', data={'title': title})
+    assert resp.status_code == 302
+    assert ChatRoom.query.filter_by(title=title).count() == 1

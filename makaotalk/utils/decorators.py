@@ -4,7 +4,7 @@ from random import randint
 from flask import session
 
 
-def get_or_set_username(method):
+def set_username_if_not(method):
     @wraps(method)
     def decorated_function(*args, **kwargs):
         if 'username' not in session:

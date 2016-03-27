@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, session, url_for
 
 from . import blueprint
 from ..models import db
-from ..utils.decorators import get_or_set_username
+from ..utils.decorators import set_username_if_not
 from ..models.chat import ChatRoom, Message
 
 
@@ -19,7 +19,7 @@ def web_chat_create():
 
 
 @blueprint.route('/chat/<int:room_id>/')
-@get_or_set_username
+@set_username_if_not
 def web_chat_room(room_id):
     chat_room = ChatRoom.query.get_or_404(room_id)
     messages = Message.query.filter_by(chat_room=chat_room)

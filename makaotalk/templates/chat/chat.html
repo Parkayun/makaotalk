@@ -5,6 +5,8 @@
 {% block body %}
     <a href="/">Back to home</a>
     <h1>Chat - {{ chat_room.title }}</h1>
+    <p>Press Enter to send message, Press ESC to cancel modify</p>
+    <hr>
     <div id="board">
     {% for message in messages %}
         <p id="message-{{ message.id }}">
@@ -17,7 +19,7 @@
         </p>
     {% endfor %}
     </div>
-    <input type="text" id="input">
+    <span>Input: </span><input type="text" id="input">
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.2.1/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
     function getMessageIdByButton($button) {

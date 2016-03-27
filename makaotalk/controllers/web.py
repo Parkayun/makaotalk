@@ -26,9 +26,9 @@ def web_chat_create():
 def web_chat_room(room_id):
     """Page of real-time chat room.
     This page shows previous chat log and can real-time chat.
-    And this controller doing set username if not exists by set_username_if_not decorator.
+    And this controller doing set username if not exists by :class:`~makaotalk.utils.decorators.set_username_if_not`.
 
-    :param room_id: primary key of :class:`~makaotalk.models.chat.ChatRoom`
+    :param room_id: primary key of :class:`~makaotalk.models.chat.ChatRoom`.
     :type room_id: :class:`int`
     """
     chat_room = ChatRoom.query.get_or_404(room_id)

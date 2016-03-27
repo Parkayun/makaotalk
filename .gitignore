@@ -54,7 +54,6 @@ coverage.xml
 local_settings.py
 
 # Flask instance folder
-/.gitignore
 instance/
 
 # Scrapy stuff:

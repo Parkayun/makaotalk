@@ -85,5 +85,6 @@ API
 
    api/controllers
    api/models
+   api/utils
 
 

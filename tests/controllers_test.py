@@ -1,4 +1,4 @@
-import os, sys; sys.path.insert(0, os.path.abspath('..'));
+import os, sys; sys.path.insert(0, os.path.abspath('..'))
 
 from . import get_app
 from makaotalk.models import db

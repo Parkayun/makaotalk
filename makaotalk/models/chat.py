@@ -2,6 +2,9 @@ from . import db
 
 
 class ChatRoom(db.Model):
+    """ChatRoom contains general information for chat (currently only title and id).
+    Chats are categorized according to id (primary key).
+    """
     id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(50))
     created_at = db.Column(db.DateTime())

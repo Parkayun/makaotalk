@@ -13,11 +13,13 @@ def test_chat_room():
 
     assert ChatRoom.query.count() == 0
 
-    _chat_room = ChatRoom('test')
+    title = 'test'
+    _chat_room = ChatRoom(title)
     db.session.add(_chat_room)
     db.session.commit()
 
-    assert  ChatRoom.query.count() == 1
+    assert ChatRoom.query.count() == 1
+    assert _chat_room.title == title
 
     chat_room = ChatRoom.query.first()
 

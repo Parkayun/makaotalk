@@ -38,3 +38,18 @@ def test_web_chat_create():
     resp = client.post('/chat/create/', data={'title': title})
     assert resp.status_code == 302
     assert ChatRoom.query.filter_by(title=title).count() == 1
+
+
+def test_web_chat_room():
+    title = 'room_test'
+    chat_room = ChatRoom(title)
+
+    resp = client.get('/chat/%s/' % chat_room.id)
+    assert resp.status_code == 404
+
+    db.session.add(chat_room)
+    db.session.commit()
+
+    resp = client.get('/chat/%s/' % chat_room.id)
+    assert title.encode('utf-8') in resp.data
+    assert resp.status_code == 200

@@ -43,7 +43,7 @@ Quick Start
 
 .. sourcecode:: bash
 
-   ~ $ export DB_PATH=sqlite:///../database.db
+   ~ $ export DB_URI=sqlite:///../database.db
    ~ $ python manage.py setup_db
 
 4. run server

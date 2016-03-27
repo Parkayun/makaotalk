@@ -50,6 +50,20 @@ def test_web_chat_room():
     db.session.add(chat_room)
     db.session.commit()
 
+    username, text = 'tester', 'test-text'
+    message = Message(username, text, chat_room.id)
+
     resp = client.get('/chat/%s/' % chat_room.id)
     assert title.encode('utf-8') in resp.data
+    assert  username.encode('utf-8') not in resp.data
+    assert text.encode('utf-8') not in resp.data
+    assert resp.status_code == 200
+
+    db.session.add(message)
+    db.session.commit()
+
+    resp = client.get('/chat/%s/' % chat_room.id)
+    assert title.encode('utf-8') in resp.data
+    assert username.encode('utf-8') in resp.data
+    assert text.encode('utf-8') in resp.data
     assert resp.status_code == 200

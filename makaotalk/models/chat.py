@@ -2,7 +2,7 @@ from . import db
 
 
 class ChatRoom(db.Model):
-    """ChatRoom contains general information for chat (currently only title and id).
+    """ChatRoom contains general information for chat.
     Chats are categorized according to id (primary key).
     """
     id = db.Column(db.Integer(), primary_key=True)
